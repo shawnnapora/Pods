@@ -12,10 +12,16 @@
                 return false;
             }
 
-            bool card1Equal = Card1?.Equals(other.Card1) ?? other.Card1 == null;
-            if (!card1Equal)
+            if (Card1 == null)
             {
-                return false;
+                if (other.Card1 != null)
+                {
+                    return false;
+                }
+                else if (!Card1!.Equals(other.Card1))
+                {
+                    return false;
+                }
             }
             
             return Card2?.Equals(other.Card2) ?? other.Card2 == null;

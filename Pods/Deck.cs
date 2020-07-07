@@ -13,9 +13,9 @@ namespace Pods
         public Deck()
         {
             _cards = new List<Card>();
-            foreach (Suit suit in Enum.GetValues(typeof(Suit)))
+            foreach (Suit suit in _cachedSuits)
             {
-                foreach (Rank rank in Enum.GetValues(typeof(Rank)))
+                foreach (Rank rank in _cachedRanks)
                 {
                     _cards.Add(new Card(suit, rank));
                 }
@@ -59,5 +59,8 @@ namespace Pods
 
             _shuffled = true;
         }
+
+        private static readonly Suit[] _cachedSuits = (Suit[])Enum.GetValues(typeof(Suit));
+        private static readonly Rank[] _cachedRanks = (Rank[])Enum.GetValues(typeof(Rank));
     }
 }
