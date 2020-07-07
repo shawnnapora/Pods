@@ -17,7 +17,7 @@ namespace Pods
 
         public override bool Equals(object? obj)
         {
-            return obj is Card other && other.Suit.Equals(Suit) && other.Rank.Equals(Rank);
+            return obj is Card other && other.Rank.Equals(Rank) && other.Suit.Equals(Suit);
         }
 
         public override int GetHashCode() => Suit.GetHashCode() ^ Rank.GetHashCode();
@@ -26,6 +26,9 @@ namespace Pods
         {
             return Rank.CompareTo(other.Rank);
         }
+        
+        internal static readonly char[] Ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
+        internal static readonly char[] Suits = {'♣', '♠', '♥', '♦'};
     }
 
     public enum Suit
@@ -55,12 +58,11 @@ namespace Pods
 
     public static class CardExtensions
     {
-        public static char Stringify(this Suit suit) => Suits[(int)suit];
-        public static char Stringify(this Suit? suit) => suit != null ? Suits[(int)suit] : '?';
-        public static char Stringify(this Rank rank) => Ranks[(int)rank];
-        public static char Stringify(this Rank? rank) => rank != null ? Ranks[(int)rank] : '?';
+        public static char Stringify(this Suit suit) => Card.Suits[(int)suit];
+        public static char Stringify(this Suit? suit) => suit != null ? Card.Suits[(int)suit] : '?';
+        public static char Stringify(this Rank rank) => Card.Ranks[(int)rank];
+        public static char Stringify(this Rank? rank) => rank != null ? Card.Ranks[(int)rank] : '?';
 
-        private static readonly char[] Ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
-        private static readonly char[] Suits = {'♣', '♠', '♥', '♦'};
+
     }
 }

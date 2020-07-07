@@ -11,14 +11,25 @@ namespace Pods
     {
         private List<Player> _players = new List<Player>();
         private List<Card> _communityCards = new List<Card>();
-        private Deck _deck = new Deck();
+        private Deck _deck;
 
         public ReadOnlyCollection<Player> Players => _players.AsReadOnly();
         public ReadOnlyCollection<Card> CommunityCards => _communityCards.AsReadOnly();
 
         public Table(int players)
         {
+            _deck = new Deck();
             for (int player = 0; player < players; player++)
+            {
+                _players.Add(new Player());
+            }
+        }
+
+        public Table(Player player1, Deck deck, int otherPlayers)
+        {
+            _deck = deck;
+            _players.Add(player1);
+            for (int player = 0; player < otherPlayers; player++)
             {
                 _players.Add(new Player());
             }
@@ -28,6 +39,10 @@ namespace Pods
         {
             foreach (Player player in _players)
             {
+                if (player.Card1 != null)
+                {
+                    continue;
+                }
                 player.Card1 = _deck.Deal();
                 player.Card2 = _deck.Deal();
             }
