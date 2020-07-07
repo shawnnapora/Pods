@@ -36,15 +36,15 @@ namespace PodsCli
 
         static void RunMany(int count)
         {
-            var playerStats = new ConcurrentDictionary<Player, Stats>();
+            var playerStats = new ConcurrentDictionary<StatsHoleCards, Stats>();
             for (int i = 0; i < count; i++)
             {
                 var table = new Table(2);
                 table.DealAll();
                 var p1 = new Hand(table.Players[0], table);
                 var p2 = new Hand(table.Players[1], table);
-                var p1Stats = playerStats.GetOrAdd(table.Players[0], _ => new Stats());
-                var p2Stats = playerStats.GetOrAdd(table.Players[1], _ => new Stats());
+                var p1Stats = playerStats.GetOrAdd(new StatsHoleCards(table.Players[0]), _ => new Stats());
+                var p2Stats = playerStats.GetOrAdd(new StatsHoleCards(table.Players[1]), _ => new Stats());
 
                 switch (p1.CompareTo(p2))
                 {
@@ -68,12 +68,12 @@ namespace PodsCli
             var bestPlayerStats = playerStats.Aggregate(BestWinRate);
             var bestPlayer = bestPlayerStats.Key;
             var bestStats = bestPlayerStats.Value;
-            Console.WriteLine($"Best hole cards: {bestPlayer} with {bestStats.Wins} wins out of {bestStats.Attempts} ({bestStats.WinRate:%%}) in {count} rounds");
+            Console.WriteLine($"Best hole cards: {bestPlayer} with {bestStats.Wins} wins out of {bestStats.Attempts} ({bestStats.WinRate:P}) in {count} rounds");
         }
 
-        private static KeyValuePair<Player, Stats> BestWinRate(
-            KeyValuePair<Player, Stats> best,
-            KeyValuePair<Player, Stats> current)
+        private static KeyValuePair<StatsHoleCards, Stats> BestWinRate(
+            KeyValuePair<StatsHoleCards, Stats> best,
+            KeyValuePair<StatsHoleCards, Stats> current)
         {
             return current.Value.WinRate > best.Value?.WinRate ? current : best;
         }
