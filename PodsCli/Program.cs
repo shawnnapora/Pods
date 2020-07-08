@@ -58,27 +58,33 @@ namespace PodsCli
             Table table, 
             ConcurrentDictionary<StatsHoleCards, Stats> playerStats)
         {
-            var p1 = new Hand(table.Players[0], table);
-            var p2 = new Hand(table.Players[1], table);
+            var hands = table.Players.Select(c => new Hand(c, table)).ToArray();
             var p1Stats = playerStats.GetOrAdd(new StatsHoleCards(table.Players[0]), _ => new Stats());
-            var p2Stats = playerStats.GetOrAdd(new StatsHoleCards(table.Players[1]), _ => new Stats());
 
-            switch (p1.CompareTo(p2))
+            var p1Hand = hands[0];
+            int worstCompare = 1;
+            for (int i = 1; i < hands.Length; i++)
             {
-                case 1:
-                    p1Stats.Wins += 1;
-                    p2Stats.Losses += 1;
-                    break;
-                case 0:
-                    p1Stats.Pushes += 1;
-                    p2Stats.Pushes += 1;
-                    break;
-                case -1:
+                int currentCompare = p1Hand.CompareTo(hands[i]);
+                if (currentCompare < 0)
+                {
                     p1Stats.Losses += 1;
-                    p2Stats.Wins += 1;
-                    break;
-                default:
-                    throw new Exception("invalid result");
+                    return;
+                }
+
+                if (worstCompare > currentCompare)
+                {
+                    worstCompare = currentCompare;
+                }
+            }
+
+            if (worstCompare == 0)
+            {
+                p1Stats.Splits += 1;
+            }
+            else
+            {
+                p1Stats.Wins += 1;
             }
         }
 
@@ -92,11 +98,11 @@ namespace PodsCli
         private class Stats
         {
             public int Wins;
-            public int Pushes;
+            public int Splits;
             public int Losses;
 
-            public int Attempts => Wins + Pushes + Losses;
-            public double WinRate => ((double) Wins + Pushes) / Attempts;
+            public int Attempts => Wins + Splits + Losses;
+            public double WinRate => ((double) Wins + Splits) / Attempts;
         }
     }
 }
