@@ -1,0 +1,17 @@
+﻿<div class="player">
+    Player @DisplayNumber
+    <div class="cards">
+        <Card Model="@Model.Card1"/>
+        <Card MOdel="@Model.Card2"/>
+    </div>
+</div>
+@code
+{
+    [Parameter]
+    public int Number { get; set; }
+    
+    [Parameter]
+    public Pods.Player Model { get; set; }
+
+    private int DisplayNumber => Number + 1;
+}

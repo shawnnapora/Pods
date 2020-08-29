@@ -1,0 +1,17 @@
+﻿<span class="card" @onclick=OnClick>
+    @Model
+    @_onClick
+</span>
+
+@code
+{
+    private string _onClick = "";
+    
+    [Parameter]
+    public Pods.Card Model { get; set; }
+
+    public async Task OnClick()
+    {
+        _onClick = _onClick == "" ? "Clicked" : "";
+    }
+}

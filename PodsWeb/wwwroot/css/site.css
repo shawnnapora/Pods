@@ -26,6 +26,43 @@ app {
     align-items: center;
 }
 
+.community-cards {
+    padding: .5rem;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+}
+
+.community-cards-label {
+    vertical-align: center;
+    display: flex;
+}
+
+.players {
+    flex-direction: row;
+    display: inline-flex;
+}
+
+.player {
+    text-align: center;
+    flex-direction: column;
+    padding: .5rem;
+}
+
+.cards {
+    flex-direction: row;
+}
+
+.card {
+    height: 3rem;
+    width: 2rem;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: .5rem;
+    box-sizing: border-box;
+    display: inline-flex;
+}
+
 .main {
     flex: 1;
 }

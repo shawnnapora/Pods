@@ -1,0 +1,10 @@
+﻿@foreach (var card in Model)
+{
+    <Card Model="@card" />
+}
+
+@code
+{
+    [Parameter]
+    public IList<Pods.Card> Model { get; set; }
+}
