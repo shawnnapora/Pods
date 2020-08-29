@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pods", "Pods\Pods.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodsCli", "PodsCli\PodsCli.csproj", "{A515E8A6-F3EF-4A0D-B9F9-B6075E6DDB61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OddsGenerator", "OddsGenerator\OddsGenerator.csproj", "{12A2C314-71EF-4A45-ACAA-6112298BE156}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,17 @@ Global
 		{A515E8A6-F3EF-4A0D-B9F9-B6075E6DDB61}.Release|x64.Build.0 = Release|Any CPU
 		{A515E8A6-F3EF-4A0D-B9F9-B6075E6DDB61}.Release|x86.ActiveCfg = Release|Any CPU
 		{A515E8A6-F3EF-4A0D-B9F9-B6075E6DDB61}.Release|x86.Build.0 = Release|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Debug|x64.Build.0 = Debug|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Debug|x86.Build.0 = Debug|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Release|x64.ActiveCfg = Release|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Release|x64.Build.0 = Release|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Release|x86.ActiveCfg = Release|Any CPU
+		{12A2C314-71EF-4A45-ACAA-6112298BE156}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

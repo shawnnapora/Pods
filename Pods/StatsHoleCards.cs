@@ -31,6 +31,10 @@ namespace Pods
             
             Suited = player.Card1.Suit == player.Card2.Suit;
         }
+
+        public StatsHoleCards(string statString) : this(Player.FromStatsString(statString))
+        {
+        }
         
         public override bool Equals(object? obj)
         {
