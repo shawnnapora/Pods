@@ -1,0 +1,17 @@
+﻿<span class="card" @onclick=OnClick>
+    @Model
+</span>
+
+@code
+{
+    [Parameter]
+    public Card Model { get; set; }
+
+    [Parameter] 
+    public EventHandler<Card> OnClickCallback { get; set; }
+    
+    public void OnClick()
+    {
+        OnClickCallback?.Invoke(this, Model);
+    }
+}

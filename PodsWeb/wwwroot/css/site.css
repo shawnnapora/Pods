@@ -63,6 +63,16 @@ app {
     display: inline-flex;
 }
 
+.card.active {
+    border-color: black;
+    color: black;
+}
+
+.card.inactive {
+    border-color: lightgray;
+    color: lightgray;
+}
+
 .main {
     flex: 1;
 }

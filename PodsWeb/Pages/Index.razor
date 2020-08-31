@@ -1,37 +1,107 @@
 ﻿@page "/"
+@using PodsWeb.Data
+@using Pods.Odds
 
-<h1>Table</h1>
+<h1>Odds</h1>
 
-<div class="controls">
-    <button class="btn btn-primary" @onclick="Deal">Deal</button>
-    <button class="btn btn-primary" @onclick="Reset">Reset</button>
-</div>
+<h2>Select Cards</h2>
+<SelectCardsComponent SelectCards=@_selectCards CardSelectedCallback=@CardClicked />
 
-<div class="community-cards">
-    <span class="community-cards-label">Community Cards:</span>
-    <CommunityCards Model=@_table.CommunityCards />
-</div>
+<h2>Table</h2>
+<TableComponent Table=_table />
 
-<div class="players">
-    @for (int i = 0; i < _table.Players.Count; i++)
+<h2>Odds</h2>
+@if (_preflop)
+{
+    if (_table.Players[0].Card2 != null)
     {
-        <Player Model=@_table.Players[i] Number=@i />
+        var statsHand = new StatsHoleCards(_table.Players[0]);
+        var percent = $"{PreflopOdds.OddsByPlayers[9][statsHand]:P}";
+        <span>@(percent)</span>
     }
-</div>
+    else
+    {
+        <span>Select cards to see odds</span>
+    }
+}
+else
+{
+    <span>Not implemented</span>
+}
+
+<p>
+    <button @onclick=@Reset>Reset</button>
+</p>
 
 @code
 {
-    private Table _table = new Table(8);
+    private Table _table = new Table(9);
+    private SelectCard[,] _selectCards;
+    private bool _preflop = true;
 
-    private void Deal()
+    protected override Task OnInitializedAsync()
     {
-        _table.DealAll();
-        StateHasChanged();
+        _selectCards = GetSelectCards();
+        return Task.CompletedTask;
     }
 
+    private SelectCard[,] GetSelectCards()
+    {
+        var cards = new SelectCard[4,13];
+        var i = 0;
+        foreach (var suit in Suits)
+        {
+            var j = 0;
+            
+            foreach (var rank in Ranks)
+            {
+                cards[i,j] = new SelectCard(new Card(suit, rank));
+                j++;
+            }
+            
+            i++;
+        }
+        
+        return cards;
+    }
+
+    private void CardClicked(object _, SelectCard card)
+    {
+        if (card.IsActive)
+        {
+            return; // don't support undo here (yet?)
+        }
+
+        Table table = (Table)_table.Clone();
+        if (table.Players[0].Card1 == null)
+        {
+            table.Players[0].Card1 = card;
+        }
+        else if (table.Players[0].Card2 == null)
+        {
+            table.Players[0].Card2 = card;
+        }
+        else if (table.CommunityCards.Count < 5)
+        {
+            table.AddCommunityCard(card);
+        }
+        else
+        {
+            return;
+        }
+
+        _table = table;
+        card.IsActive = true;
+        StateHasChanged();
+    }
+    
     private void Reset()
     {
-        _table = new Table(8);
+        _table = new Table(9);
+        _selectCards = GetSelectCards();
         StateHasChanged();
     }
+
+    private static readonly Rank[] Ranks = (Rank[])Enum.GetValues(typeof(Rank));
+    private static readonly Suit[] Suits = (Suit[]) Enum.GetValues(typeof(Suit));
 }

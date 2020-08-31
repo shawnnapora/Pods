@@ -13,8 +13,6 @@ namespace Pods
             Rank = rank;
         }
 
-        public override string ToString() => $"{Rank.Stringify()}{Suit.Stringify()}";
-
         public override bool Equals(object? obj)
         {
             return obj is Card other && other.Rank.Equals(Rank) && other.Suit.Equals(Suit);
@@ -26,6 +24,8 @@ namespace Pods
         {
             return Rank.CompareTo(other.Rank);
         }
+        
+        public override string ToString() => $"{Rank.Stringify()}{Suit.Stringify()}";
         
         internal static readonly char[] Ranks = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
         internal static readonly char[] Suits = {'♣', '♠', '♥', '♦'};
@@ -62,7 +62,5 @@ namespace Pods
         public static char Stringify(this Suit? suit) => suit != null ? Card.Suits[(int)suit] : '?';
         public static char Stringify(this Rank rank) => Card.Ranks[(int)rank];
         public static char Stringify(this Rank? rank) => rank != null ? Card.Ranks[(int)rank] : '?';
-
-
     }
 }

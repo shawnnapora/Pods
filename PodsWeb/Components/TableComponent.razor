@@ -1,0 +1,17 @@
+﻿<div class="community-cards">
+    <span class="community-cards-label">Community Cards:</span>
+    <CommunityCards Model=@Table.CommunityCards />
+</div>
+
+<div class="players">
+    @for (int i = 0; i < Table.Players.Count; i++)
+    {
+        <PlayerComponent Model=@Table.Players[i] Number=@i />
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public Table Table { get; set; }
+}

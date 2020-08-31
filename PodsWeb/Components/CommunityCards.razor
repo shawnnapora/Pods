@@ -1,10 +1,10 @@
 ﻿@foreach (var card in Model)
 {
-    <Card Model="@card" />
+    <CardComponent Model="@card" />
 }
 
 @code
 {
     [Parameter]
-    public IList<Pods.Card> Model { get; set; }
+    public IList<Card> Model { get; set; }
 }

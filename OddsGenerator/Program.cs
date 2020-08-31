@@ -43,14 +43,14 @@ namespace OddsGenerator
             var ranks = Enum.GetValues(typeof(Rank));
             Array.Reverse(ranks);
             
-            foreach (Rank rankX in ranks)
+            foreach (Rank rowRank in ranks)
             {
                 output.Indent();
                 output.Tab();
-                foreach (Rank rankY in ranks)
+                foreach (Rank colRank in ranks)
                 {
                     // break the line and indent halfway through:
-                    if (rankY == Rank.Eight)
+                    if (colRank == Rank.Eight)
                     {
                         output.AppendLine();
                         output.Indent();
@@ -58,13 +58,13 @@ namespace OddsGenerator
                     }
 
                     string statString;
-                    if (rankX <= rankY)
+                    if (rowRank <= colRank)
                     {
-                        statString = $"{rankY.Stringify()}{rankX.Stringify()}o";
+                        statString = $"{colRank.Stringify()}{rowRank.Stringify()}o";
                     }
                     else
                     {
-                        statString = $"{rankX.Stringify()}{rankY.Stringify()}s";
+                        statString = $"{rowRank.Stringify()}{colRank.Stringify()}s";
                     }
                     
                     var player = Player.FromStatsString(statString);

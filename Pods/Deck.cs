@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Pods
 {
-    public class Deck
+    public class Deck : ICloneable
     { 
         private List<Card> _cards;
         public int Size => _cards.Count;
@@ -57,6 +57,15 @@ namespace Pods
             }
 
             _shuffled = true;
+        }
+        
+        public object Clone()
+        {
+            return new Deck()
+            {
+                _cards = _cards.Clone(),
+                _shuffled = _shuffled,
+            };
         }
 
         private static readonly Suit[] _cachedSuits = (Suit[])Enum.GetValues(typeof(Suit));

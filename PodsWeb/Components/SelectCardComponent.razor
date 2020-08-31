@@ -1,0 +1,20 @@
+﻿@using PodsWeb.Data
+<span class="card @(ActiveClass())" @onclick=OnClick>
+    @SelectCard
+</span>
+
+@code
+{
+    [Parameter]
+    public EventHandler<SelectCard> OnClickCallback { get; set; }
+    
+    [Parameter]
+    public SelectCard SelectCard { get; set; }
+
+    private string ActiveClass() => SelectCard.IsActive ? "active" : "inactive";
+    
+    public void OnClick()
+    {
+        OnClickCallback?.Invoke(this, SelectCard);
+    }
+}

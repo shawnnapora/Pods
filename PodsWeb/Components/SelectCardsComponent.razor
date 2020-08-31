@@ -1,0 +1,23 @@
+﻿@using PodsWeb.Data
+<table>
+    @for (var i = 0; i < SelectCards.GetLength(0); i++)
+    {
+        <tr>
+            @for (var j = 0; j < SelectCards.GetLength(1); j++)
+            {
+                <td>
+                    <SelectCardComponent SelectCard=@SelectCards[i,j] OnClickCallback=@CardSelectedCallback />
+                </td>
+            }
+        </tr>
+    }
+</table>
+
+@code
+{
+    [Parameter]
+    public SelectCard[,] SelectCards { get; set; }
+    
+    [Parameter]
+    public EventHandler<SelectCard> CardSelectedCallback { get; set; }
+}
